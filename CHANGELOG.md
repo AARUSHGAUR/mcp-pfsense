@@ -6,7 +6,7 @@ All notable changes to mcp-pfsense are documented here. The format follows
 ## [Unreleased]
 
 ### Added
-- `get_firewall_logs(limit, action)` — a strictly read-only monitoring tool that returns recent firewall log entries (time, action, interface, source, destination, port, protocol) from `GET /status/log/firewall`. Supports a `limit` (default 50) and an optional `action` filter (`pass`/`block`) to answer "why was traffic to X blocked?" without dropping into the WebGUI (#5).
+- `get_firewall_logs(limit)` — a strictly read-only monitoring tool that returns recent raw firewall log entries (`id`, `text`) from `GET /status/logs/firewall`. Supports a `limit` (default 50) without dropping into the WebGUI (#5).
 
 ## [0.2.0] — 2026-08-17
 

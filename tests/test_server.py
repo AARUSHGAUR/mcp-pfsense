@@ -70,3 +70,11 @@ def test_apply_changes_requires_confirm_flag() -> None:
     schema = _tools()["apply_changes"]
     assert schema["properties"]["confirm"]["default"] is False
     assert schema["required"] == ["subsystem"]
+
+
+def test_get_firewall_logs_exposes_only_a_limit() -> None:
+    schema = _tools()["get_firewall_logs"]
+    assert "required" not in schema
+    assert set(schema["properties"]) == {"limit"}
+    assert schema["properties"]["limit"]["default"] == 50
+    assert schema["properties"]["limit"]["type"] == "integer"

@@ -190,18 +190,14 @@ class PfSenseClient:
 
     # --- Firewall logs ---
 
-    def get_firewall_logs(
-        self, limit: int = 50, action: str | None = None
-    ) -> dict[str, Any]:
+    def get_firewall_logs(self, limit: int = 50) -> dict[str, Any]:
         """Get recent firewall log entries (read-only).
 
-        Thin wrapper over ``GET /status/log/firewall``. ``limit`` keeps the
-        payload small; ``action`` optionally filters to ``pass`` or ``block``.
+        Thin wrapper over ``GET /status/logs/firewall``. The pfrest v2 API
+        returns each entry as its ID and raw log text; ``limit`` keeps the
+        payload small.
         """
-        params: dict[str, Any] = {"limit": limit}
-        if action:
-            params["action"] = action
-        return self._get("/status/log/firewall", **params)
+        return self._get("/status/logs/firewall", limit=limit)
 
     def restart_service(self, name: str) -> dict[str, Any]:
         """Restart a service by name."""

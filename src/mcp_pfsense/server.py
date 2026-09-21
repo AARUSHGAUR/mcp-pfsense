@@ -250,16 +250,14 @@ def restart_service(name: str, confirm: bool = False) -> dict[str, Any]:
 
 
 @mcp.tool()
-def get_firewall_logs(limit: int = 50, action: str | None = None) -> list[dict[str, Any]]:
+def get_firewall_logs(limit: int = 50) -> list[dict[str, Any]]:
     """Read-only view of recent firewall log entries.
 
-    Each entry shows the time, action (pass/block), interface, source,
-    destination, port and protocol — answering "why was traffic to 10.0.0.5:443
-    blocked?" at a glance. `limit` caps the number of entries (default 50) and
-    `action` optionally narrows to 'pass' or 'block'. This tool only reads logs;
-    it never writes to the firewall.
+    Each entry contains its ID and raw log text from pfrest. `limit` caps the
+    number of entries (default 50). This tool only reads logs; it never writes
+    to the firewall.
     """
-    return monitoring.get_firewall_logs(_get_client(), limit=limit, action=action)
+    return monitoring.get_firewall_logs(_get_client(), limit=limit)
 
 
 def main() -> None:
